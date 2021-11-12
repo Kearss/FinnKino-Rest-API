@@ -7,8 +7,60 @@
 	<title>FinnKino</title>
 </head>
 <body>
-    <h1>FinnKino</h1>
-    <p id="demo"></p>
-    <script src="FinnKino.js"></script>
+    <h1>Finnkino thingy</h1>
+    <br>
+    <div class="container">
+        <select class="form-select" aria-label="Default select example" id="selectCountry">
+            <option selected>Choose Theatre</option>
+            <option value="All Theatres">All Theatres</option>
+            <option value="Pääkaupunkiseutu">Pääkaupunkiseutu</option>
+            <option value="Espoo">Espoo</option>
+            <option value="Espoo: OMENA">Espoo: OMENA</option>
+            <option value="Espoo: SELLO">Espoo: SELLO</option>
+            <option value="Helsinki">Helsinki</option>
+            <option value="Helsinki: ITIS">Helsinki: ITIS</option>
+            <option value="Helsinki: KINOPALATSI">Helsinki: KINOPALATSI</option>
+            <option value="Helsinki: MAXIM">Helsinki: MAXIM</option>
+            <option value="Helsinki: TENNISPALATSI">Helsinki: TENNISPALATSI</option>
+            <option value="Vantaa: FLAMINGO">Vantaa: FLAMINGO</option>
+            <option value="Jyväskylä: FANTASIA">Jyväskylä: FANTASIA</option>
+            <option value="Kuopio: SCALA">Kuopio: SCALA</option>
+            <option value="Lahti: KUVAPALATSI">Lahti: KUVAPALATSI</option>
+            <option value="Lappeenranta: STRAND">Lappeenranta: STRAND</option>
+            <option value="Oulu: PLAZA">Oulu: PLAZA</option>
+            <option value="Pori: PROMENADI">Pori: PROMENADI</option>
+            <option value="Tampere">Tampere</option>
+            <option value="Tampere: CINE ATLAS">Tampere: CINE ATLAS</option>
+            <option value="Tampere: PLEVNA">Tampere: PLEVNA</option>
+            <option value="Turku: KINOPALATSI">Turku: KINOPALATSI</option>
+          </select>
+          <h1>Search By movie</h1>
+          <input type="text" id="Title" class="form-control" placeholder="Movie Title">
+  
+          <button id="searchMovie" class="btn btn-primary btn-block">Search</button>
+        <table class="table table-striped" id="result">
+            <thead>
+                <tr>
+                    <th>Poster</th>
+                    <th>Title</th>
+                    <th>Length</th>
+                    <th>Rating</th>
+                    <th>Year</th>
+                    <th>Language Spoken</th>
+                    <th>Subtitles</th>
+                    <th>Theatre</th>
+                </tr>				
+            </thead>
+            <tbody id="container">
+                <tr id="template">
+                    <td><a href="#" class="link"></a></td>
+                    <td class="plot"></td>
+                    <td><img src="" class="poster"></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src = "FinnKino.js"></script>
 </body>
 </html> 
