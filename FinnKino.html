@@ -11,7 +11,6 @@
     <br>
     <div class="container">
         <select class="form-select" aria-label="Default select example" id="selectCountry">
-            <option selected>Choose Theatre</option>
             <option value="All Theatres">All Theatres</option>
             <option value="Pääkaupunkiseutu">Pääkaupunkiseutu</option>
             <option value="Espoo">Espoo</option>
@@ -39,9 +38,11 @@
             <button id="searchMovie" class="btn btn-primary btn-block">Search</button>
 
             <button type="button" onclick="loadDoc()">Get Finnkino movies</button>
-            <br><br>
-            <table class="table table-striped" id="demo"></table>  
+            <table class="table table-striped" id="demo">
+              
+            </table>  
     </div>
     <script src = "FinnKino.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </body>
 </html>
