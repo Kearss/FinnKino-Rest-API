@@ -1,14 +1,32 @@
-function loadDoc() {
-    var url = "https://www.finnkino.fi/xml/Schedule/";
+
+
+
+// Valikko WIP
+function Valikko() {
+  // testasin valikkoo 
+  var theatre = document.getElementById('selectTheatre');
+  
     var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", 'https://www.finnkino.fi/xml/Schedule/', true);
+    xhttp.send();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         myFunction(this);
       }
     };
-    xhttp.open("GET", url, true);
+  
+   if (theatre == "OMENA"){
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", 'https://www.finnkino.fi/xml/Schedule/?area=1039', true);
     xhttp.send();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        myFunction(this);
+      }
+    };
   }
+}
+//Hakee datan xml tiedostosta ja tekee listan uudelleen ja lajittelee kaikki oikeisiin taulukkoon.
   function myFunction(xml) {
     var i;
     var xmlDoc = xml.responseXML;
@@ -32,3 +50,11 @@ function loadDoc() {
     }
     document.getElementById("demo").innerHTML = table;
   }
+
+
+  var selectTheatre = document.getElementById("selectTheatre");
+
+  selectTheatre.addEventListener("change", function cc(){
+  selectTheatre();
+});
+
