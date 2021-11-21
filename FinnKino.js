@@ -1,7 +1,7 @@
 
 
 
-// Valikko WIP
+// Valikko WIP toimii 
 function Valikko() {
   // testasin valikkoo 
   var theatre = document.getElementById('selectTheatre');
@@ -14,7 +14,8 @@ function Valikko() {
         myFunction(this);
       }
     };
-  
+//-----------
+//ei toimi 
    if (theatre == "OMENA"){
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", 'https://www.finnkino.fi/xml/Schedule/?area=1039', true);
@@ -51,9 +52,9 @@ function Valikko() {
     document.getElementById("demo").innerHTML = table;
   }
 
-
+// ei toimi 
   var selectTheatre = document.getElementById("selectTheatre");
-
+// ei toimi
   selectTheatre.addEventListener("change", function cc(){
   selectTheatre();
 });
