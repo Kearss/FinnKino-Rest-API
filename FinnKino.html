@@ -6,11 +6,11 @@
 
 	<title>FinnKino</title>
 </head>
-<body onload=Valikko()>
+<body onload=ListLoad()>
     <h1>Finnkino thingy</h1>
     <br>
     <div class="container">
-        <select class="form-select" aria-label="Default select example" id="selectTheatre" onchange="Valikko()">
+        <select class="form-select" aria-label="Default select example" id="selectTheatre" onchange="selectTheatre()">
             <option value="Choose">All Theatres</option>
             <option value="OMENA">Espoo: OMENA</option>
             <option value="SELLO">Espoo: SELLO</option>
@@ -27,11 +27,11 @@
             <option value="PROMENADI">Pori: PROMENADI</option>
             <option value="CINE ATLAS">Tampere: CINE ATLAS</option>
             <option value="PLEVNA">Tampere: PLEVNA</option>
-            <option value="KINOPALATSI">Turku: KINOPALATSI</option>
+            <option value="Turku">Turku: KINOPALATSI</option>
           </select>
           <h1>Search By movie</h1>
           <input type="text" id="Title" class="form-control" placeholder="Movie Title">
-            <button id="searchMovie" class="btn btn-primary btn-block">Search</button>
+      
 
 
             <table class="table table-striped" id="demo" >
