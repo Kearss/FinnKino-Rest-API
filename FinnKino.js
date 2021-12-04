@@ -3,10 +3,13 @@
 
 // Lataa pääkaupukiseudun kaikki teatterit
 function LoadList() {
-  
+    //tehdään uusi kysyntä xml tiedotolle.
     var xhttp = new XMLHttpRequest();
+    // hakee aluksi finnkino xml tiedoston. 
     xhttp.open("GET", 'https://www.finnkino.fi/xml/Schedule/', true);
+    //lähettää kutsun.
     xhttp.send();
+    // jos kutsu on valmis ja oikein aloitetaan functio.
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         myFunction(this);
@@ -16,39 +19,52 @@ function LoadList() {
 //Hakee datan xml tiedostosta ja tekee listan uudelleen ja lajittelee kaikki oikeisiin taulukkoon.
   function myFunction(xml) {
     var i;
+    //xml tiedoston kutsu saatu.
     var xmlDoc = xml.responseXML;
+    //määritelään miltä taulukko tulee näyttämään.
     var table="<tr><th>Title</th><th>Length (Minutes)</th><th>Rating</th><th>Year</th><th>Theatre</th><th>ShowTime</th><th>Poster</th></tr>";
+    //haetaan xml tiedosta kaikki nimisen show tagin sisältö.
     var x = xmlDoc.getElementsByTagName("Show");
 
 
     for (i = 0; i <x.length; i++) { 
-      // hakee showtime tiedo xml filista
-      var imageText = x[i].getElementsByTagName("dttmShowStart");
+      // hakee showtime tiedo xml filusta ja muotoilee siitä kuvallsen tekstin
+      var imageText = x[i].getElementsByTagName('dttmShowStart');
       var daTe = imageText[0]; //
+      // tulostaa jokaisen Showtime päivämäärän ja ajan.
       imageText = daTe.childNodes[0].nodeValue;
       //muotoilee showtime päivämäärän hienompaan muotoon
       var d = Date.parse(imageText);
+      //tekee päivämäärän
       var date = new Date(d);
+      //muotoiltu ja määritelty html sivun näkyvään muotoon.
       imageText = date;
-
+      // hakee kuvan xml filustam ja tekee siitä lukevan teksi muodon, jotta voidaa lukea html sivulla.
       const imageUrl = x[i].getElementsByTagName('Images')[0].firstElementChild.textContent;
-
+        // tekee taulukon
         table += "<tr><td>" +
+        //hakee talukolle jokaisen esityksen riville
         x[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue +
         "</td><td>" +
+        //hakee talukolle jokaisen esityksen pituunden riville
         x[i].getElementsByTagName("LengthInMinutes")[0].childNodes[0].nodeValue +
-        "</td><td>" +   
+        "</td><td>" + 
+        //hakee talukolle jokaisen esityksen luokitksen riville  
         x[i].getElementsByTagName("Rating")[0].childNodes[0].nodeValue +
-        "</td><td>" +     
+        "</td><td>" +  
+        //hakee talukolle jokaisen esityksen valmistumis vuoden riville   
         x[i].getElementsByTagName("ProductionYear")[0].childNodes[0].nodeValue +
         "</td><td>" +
+        //hakee talukolle jokaisen esityksen sijainin riville
         x[i].getElementsByTagName("Theatre")[0].childNodes[0].nodeValue +
         "</td><td>" +
+        //hakee talukolle jokaisen esityksen showtime päivämäärän riville.
         imageText +
         '</td><td><img src=' +
-        imageUrl +
+        //hakee talukolle jokaisen esityksen posteri kuvan riville
         '></td></tr>';
     }
+    // hakee taulukon id ja tulostaa demo taulukkoon taulukon.
     document.getElementById("demo").innerHTML = table;
   }
 
