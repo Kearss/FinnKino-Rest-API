@@ -12,7 +12,17 @@ tr{
 }
 h1{
     color: yellow;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+img{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
 }
 h2{
     color: yellow;
