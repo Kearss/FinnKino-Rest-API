@@ -24,8 +24,8 @@ function LoadList() {
     for (i = 0; i <x.length; i++) { 
       // hakee showtime tiedo xml filista
       var imageText = x[i].getElementsByTagName("dttmShowStart");
-      var dddd = imageText[0]; //
-      imageText = dddd.childNodes[0].nodeValue;
+      var daTe = imageText[0]; //
+      imageText = daTe.childNodes[0].nodeValue;
       //muotoilee showtime päivämäärän hienompaan muotoon
       var d = Date.parse(imageText);
       var date = new Date(d);
