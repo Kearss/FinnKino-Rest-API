@@ -3,10 +3,13 @@
 
 // Lataa pääkaupukiseudun kaikki teatterit
 function LoadList() {
-  
+    // määritellään kutsu
     var xhttp = new XMLHttpRequest();
+    // avataan tiedosto
     xhttp.open("GET", 'https://www.finnkino.fi/xml/Schedule/', true);
+    //lähetään kutsu..
     xhttp.send();
+    // jos kutsu tulee takaisin. voidaan aloittaa function käyttö.
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         myFunction(this);
@@ -16,8 +19,11 @@ function LoadList() {
 //Hakee datan xml tiedostosta ja tekee listan uudelleen ja lajittelee kaikki oikeisiin taulukkoon.
   function myFunction(xml) {
     var i;
+    //saatu xml tiedoston kutsu
     var xmlDoc = xml.responseXML;
+    // määrittelee talukon etukäteen.
     var table="<tr><th>Title</th><th>Length (Minutes)</th><th>Rating</th><th>Year</th><th>Theatre</th><th>ShowTime</th><th>Poster</th></tr>";
+    //heataan kaikki tiedot Show nimestä tagistä sisältö.
     var x = xmlDoc.getElementsByTagName("Show");
 
 
@@ -52,13 +58,14 @@ function LoadList() {
         //hakee talukolle jokaisen teatterin, jossaesityksen riville
         x[i].getElementsByTagName("Theatre")[0].childNodes[0].nodeValue +
         "</td><td>" +
-        //hakee talukolle jokaisen esityksen riville
+        //hakee talukolle jokaisen esityksen  showtime päivämäärän riville
         imageText +
         '</td><td><img src=' +
-        //hakee talukolle jokaisen esityksen riville
+        //hakee talukolle jokaisen esityksen posterin riville
         imageUrl +
         '></td></tr>';
     }
+    //tulostaa lopuksi demo taulukolle kaikki tiedot.
     document.getElementById("demo").innerHTML = table;
   }
 
