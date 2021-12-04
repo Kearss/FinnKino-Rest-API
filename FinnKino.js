@@ -29,16 +29,16 @@ function LoadList() {
 
     for (i = 0; i <x.length; i++) { 
       // hakee showtime tiedo xml filusta ja muotoilee siitä kuvallsen tekstin
-      var imageText = x[i].getElementsByTagName('dttmShowStart');
-      var daTe = imageText[0]; //
+      var ShowTime = x[i].getElementsByTagName('dttmShowStart');
+      var ShowTimeDate = ShowTime[0]; //
       // tulostaa jokaisen Showtime päivämäärän ja ajan.
-      imageText = daTe.childNodes[0].nodeValue;
+      ShowTime = ShowTimeDate.childNodes[0].nodeValue;
       //muotoilee showtime päivämäärän hienompaan muotoon
-      var d = Date.parse(imageText);
+      var d = Date.parse(ShowTime);
       //tekee päivämäärän
-      var date = new Date(d);
+      var newDate = new Date(d);
       //muotoiltu ja määritelty html sivun näkyvään muotoon.
-      imageText = date;
+      ShowTime = newDate;
       // hakee kuvan xml filustam ja tekee siitä lukevan teksi muodon, jotta voidaa lukea html sivulla.
       const imageUrl = x[i].getElementsByTagName('Images')[0].firstElementChild.textContent;
         // tekee taulukon
@@ -59,7 +59,7 @@ function LoadList() {
         x[i].getElementsByTagName("Theatre")[0].childNodes[0].nodeValue +
         "</td><td>" +
         //hakee talukolle jokaisen esityksen  showtime päivämäärän riville
-        imageText +
+        ShowTime +
         '</td><td><img src=' +
         //hakee talukolle jokaisen esityksen posterin riville
         imageUrl +
@@ -116,10 +116,10 @@ function searchMovie()
     } 
     // if user input is not all theathers, compare user input into movies in selected theather
     else 
-    {
+   {
     //if table data is not null
     if (td) 
-    {
+     {
       //if table data matches the userinput
       if (td.innerHTML.toUpperCase().indexOf(userInput) > -1 && theather.innerHTML.toLocaleUpperCase().indexOf(selectedTheather) > -1) 
       { 
@@ -127,12 +127,12 @@ function searchMovie()
         row[i].style.display = "";
       } 
       else 
-      {
+        {
         //if doesnt match row display goes away
         row[i].style.display = "none"; 
-      }
-    } 
-  }
+        }
+     } 
+   }
   }
 }
 
@@ -147,41 +147,48 @@ function selectTheatre()
 {
   //variable to use the dropdown menu
   let theatherSelection = document.getElementById("selectTheatre").value;
-  //
-  //user selected value from dropdown menu
-  //var userSelection = theatherSelection.value;
-  //
   //variable to get the table "demo"
   let table = document.getElementById("demo");
   //variable to seelect the tablerow
   let row = table.getElementsByTagName("tr");
-  //for loop to get all the rows
+  //Get the selected value from dropdown menu
   let theaterid = document.getElementById('selectTheatre').value;
+  //Array which has all the theathers and corresponding ID for XML file
   let theaterNameAndID = ['OMENA','SELLO','ITIS','KINOPALATSI','MAXIM','TENNISPALATSI','FLAMINGO','FANTASIA','SCALA','KUVAPALATSI','STRAND','PLAZA','PROMENADI','CINE ATLAS','PLEVNA','TURKU',1039,1038,1045,1031,1032,1033,1013,1015,1016,1017,1041,1018,1019,1034,1035,1022]
+  //Check if Pääkaupunkiseutu was selected
   if
   (document.getElementById('selectTheatre').value == "Choose")
   {
+    //Loads the Pääkapunkiseutu
     LoadList()
+    //Removes userinput from search
     document.getElementById('Title').value = '';
   } 
-   if (theaterNameAndID.includes(theaterid))
+  //check if the array has selected theather ID 
+  if (theaterNameAndID.includes(theaterid))
   {
+    //Goes through the array with Theater names and IDs
     for (i = 0; i < theaterNameAndID.length; i++) 
     {
-      if(theaterNameAndID[i] == theaterid)
+      //Finds the selected theather from array
+        if(theaterNameAndID[i] == theaterid)
       {
+        //Gets the corresponding teather ID using the position
         theaterNameAndID = theaterNameAndID[i+16];
+        //Loads the XML file using theatherID
         LoadArea(theaterNameAndID);
       }
 
     }
+
+      //for loop to get all the rows
     for (i = 0; i < row.length; i++) 
-  { 
+   { 
     //variable to get the table data from position 5
     td = row[i].getElementsByTagName("td")[4];
     // if table data is not null
     if (td) 
-    {
+     {
       //check if tabledata matches user selected value from dropdown menu
       if (td.innerHTML.toUpperCase().indexOf(theatherSelection) > -1) 
       { 
@@ -190,27 +197,30 @@ function selectTheatre()
         document.getElementById('Title').value = '';
       } 
       else 
-      {
+        {
         //if doesnt match row display goes away
         row[i].style.display = "none";
         document.getElementById('Title').value = '';
-      }
-    } 
-  }
+        }
+     } 
+   }
   }
 }
 
 
-//Loading other areas from 
-function LoadArea(theaterNameAndID) {
+//Loading other areas using TheatherID 
+function LoadArea(theaterNameAndID) 
+{
   var xhttp = new XMLHttpRequest();
+  //Opens the XML using the theatherID
   xhttp.open("GET", 'https://www.finnkino.fi/xml/Schedule/?area='+theaterNameAndID, true);
   xhttp.send();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
+  xhttp.onreadystatechange = function() 
+  {
+    if (this.readyState == 4 && this.status == 200)
+     {
       myFunction(this);
-    }
+     }
   };
 }
-
 
