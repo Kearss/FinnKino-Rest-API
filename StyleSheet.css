@@ -19,10 +19,9 @@ h1{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 img{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 h2{
     color: yellow;
