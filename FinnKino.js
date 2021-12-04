@@ -1,8 +1,9 @@
 
 
 
-// Valikko WIP toimii 
-function ListLoad() {
+// Lataa pääkaupukiseudun kaikki teatterit
+function LoadList() {
+  
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", 'https://www.finnkino.fi/xml/Schedule/', true);
     xhttp.send();
@@ -16,10 +17,22 @@ function ListLoad() {
   function myFunction(xml) {
     var i;
     var xmlDoc = xml.responseXML;
-    var table="<tr><th>Title</th><th>Length (Minutes)</th><th>Rating</th><th>Year</th><th>Theatre</th><th>Poster</th></tr>";
+    var table="<tr><th>Title</th><th>Length (Minutes)</th><th>Rating</th><th>Year</th><th>Theatre</th><th>ShowTime</th><th>Poster</th></tr>";
     var x = xmlDoc.getElementsByTagName("Show");
+
+
     for (i = 0; i <x.length; i++) { 
+      // hakee showtime tiedo xml filista
+      var imageText = x[i].getElementsByTagName("dttmShowStart");
+      var dddd = imageText[0]; //
+      imageText = dddd.childNodes[0].nodeValue;
+      //muotoilee showtime päivämäärän hienompaan muotoon
+      var d = Date.parse(imageText);
+      var date = new Date(d);
+      imageText = date;
+
       const imageUrl = x[i].getElementsByTagName('Images')[0].firstElementChild.textContent;
+
         table += "<tr><td>" +
         x[i].getElementsByTagName("Title")[0].childNodes[0].nodeValue +
         "</td><td>" +
@@ -30,6 +43,8 @@ function ListLoad() {
         x[i].getElementsByTagName("ProductionYear")[0].childNodes[0].nodeValue +
         "</td><td>" +
         x[i].getElementsByTagName("Theatre")[0].childNodes[0].nodeValue +
+        "</td><td>" +
+        imageText +
         '</td><td><img src=' +
         imageUrl +
         '></td></tr>';
@@ -38,39 +53,39 @@ function ListLoad() {
   }
 
 
-
-//Search function toimii mutta ei ota huomioon teatterin valintaa
-//
-
-//Variable the get the text from inputfield
-const SearchInput = document.getElementById('Title');
-//when user key is pressed up function is called
-SearchInput.addEventListener('keyup', searchMovie);
+//Variable the get the text from inputfield and eventlisterner for keyup
+let SearchInput = document.getElementById('Title').addEventListener("keyup", searchMovie);
 
 function searchMovie()
 {
   //variable which gets the userinput and makes it uppercase
-  var userInput = this.value.toUpperCase();
+  let userInput = this.value.toUpperCase();
   //Variable which selects the table "demo"
-  var table = document.getElementById("demo");
+  let table = document.getElementById("demo");
   //variable gets the table row from "demo"
-  var row = table.getElementsByTagName("tr");
+  let row = table.getElementsByTagName("tr");
+  let myArray = userInput.split(/[ ,]+/);
   //for loop that goes through all the rows
   for (i = 0; i < row.length; i++) 
   { 
     //variable to get tabledata from rows index for movie
     td = row[i].getElementsByTagName("td")[0];
     //variable of user selected theather from dropdown menu
-    var selectedTheather = document.getElementById("selectTheatre").value;
+    let selectedTheather = document.getElementById("selectTheatre").value;
     //variable to get tabledata from rows index for theather
-    var theather = row[i].getElementsByTagName("td")[4];
+    let theather = row[i].getElementsByTagName("td")[4];
     //if all theathers is selected only comparing user input into movies
     if (selectedTheather == "Choose")
     {
+      //if table data is not null.
       if (td) 
       {
-        //if table data matches the userinput
-        if (td.innerHTML.toUpperCase().indexOf(userInput) > -1) 
+        //if userinput matches userinput tabledata from position 0 OR theather matches userinput from tabledata from poisiton 5 
+        //if userinput has a space we see if array[0] AND array[1] data matches userinput, Used to filter Movie with Teather
+        //if userinput has a space we see if array[1] AND array[0] data matches userinput, Used to filter Teather with Movie
+        if (td.innerHTML.toUpperCase().indexOf(userInput) > -1 || theather.innerHTML.toUpperCase().indexOf(userInput) > -1 || 
+        (td.innerHTML.toUpperCase().indexOf(myArray[0]) > -1 && theather.innerHTML.toUpperCase().indexOf(myArray[1]) > -1) ||  
+        (td.innerHTML.toUpperCase().indexOf(myArray[1]) > -1 && theather.innerHTML.toUpperCase().indexOf(myArray[0]) > -1) ) 
         { 
           //if matches row display is not changed
           row[i].style.display = "";
@@ -104,49 +119,46 @@ function searchMovie()
   }
 }
 
-//Select theateri function toimii vähän huonosti
-//"All theathers" ei toimi ollennkaan
-//
-//
-//Jouduin kommentoimaan pois vähän sun koodia
-//
-//@@@@@@@@@@@@@
-//
-// ei toimi 
-//var selectTheatre = document.getElementById("selectTheatre");
-// ei toimi
-//  selectTheatre.addEventListener("change", function cc(){
-//  selectTheatre();
-//});
-//
-//
-// @@@@@@@@@@@@
 
-
-
+//Eventlistener for dropdown menu to get the selected theatre
+let selection = document.getElementById("selectTheatre").addEventListener("change", function change()
+  { 
+    selectTheatre();
+  });
 //function to select a theatre from drop down menu
 function selectTheatre()
 {
   //variable to use the dropdown menu
-  var theatherSelection = document.getElementById("selectTheatre").value;
+  let theatherSelection = document.getElementById("selectTheatre").value;
   //
   //user selected value from dropdown menu
   //var userSelection = theatherSelection.value;
   //
   //variable to get the table "demo"
-  var table = document.getElementById("demo");
+  let table = document.getElementById("demo");
   //variable to seelect the tablerow
-  var row = table.getElementsByTagName("tr");
+  let row = table.getElementsByTagName("tr");
   //for loop to get all the rows
+  let theaterid = document.getElementById('selectTheatre').value;
+  let theaterNameAndID = ['OMENA','SELLO','ITIS','KINOPALATSI','MAXIM','TENNISPALATSI','FLAMINGO','FANTASIA','SCALA','KUVAPALATSI','STRAND','PLAZA','PROMENADI','CINE ATLAS','PLEVNA','TURKU',1039,1038,1045,1031,1032,1033,1013,1015,1016,1017,1041,1018,1019,1034,1035,1022]
   if
   (document.getElementById('selectTheatre').value == "Choose")
   {
-    ListLoad()
+    LoadList()
     document.getElementById('Title').value = '';
   } 
-  else
+   if (theaterNameAndID.includes(theaterid))
   {
-  for (i = 0; i < row.length; i++) 
+    for (i = 0; i < theaterNameAndID.length; i++) 
+    {
+      if(theaterNameAndID[i] == theaterid)
+      {
+        theaterNameAndID = theaterNameAndID[i+16];
+        LoadArea(theaterNameAndID);
+      }
+
+    }
+    for (i = 0; i < row.length; i++) 
   { 
     //variable to get the table data from position 5
     td = row[i].getElementsByTagName("td")[4];
@@ -170,3 +182,18 @@ function selectTheatre()
   }
   }
 }
+
+
+//Loading other areas from 
+function LoadArea(theaterNameAndID) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", 'https://www.finnkino.fi/xml/Schedule/?area='+theaterNameAndID, true);
+  xhttp.send();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      myFunction(this);
+    }
+  };
+}
+
+

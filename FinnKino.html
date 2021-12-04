@@ -3,38 +3,36 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="StyleSheet.css" rel="stylesheet">
 
 	<title>FinnKino</title>
 </head>
-<body onload=ListLoad()>
-    <h1>Finnkino thingy</h1>
+<body onload=LoadList()>
+    <h1>Funkino</h1>
     <br>
     <div class="container">
-        <select class="form-select" aria-label="Default select example" id="selectTheatre" onchange="selectTheatre()">
-            <option value="Choose">All Theatres</option>
-            <option value="OMENA">Espoo: OMENA</option>
-            <option value="SELLO">Espoo: SELLO</option>
-            <option value="ITIS">Helsinki: ITIS</option>
-            <option value="KINOPALATSI">Helsinki: KINOPALATSI</option>
-            <option value="MAXIM">Helsinki: MAXIM</option>
-            <option value="TENNISPALATSI">Helsinki: TENNISPALATSI</option>
-            <option value="FLAMINGO">Vantaa: FLAMINGO</option>
-            <option value="FANTASIA">Jyväskylä: FANTASIA</option>
-            <option value="SCALA">Kuopio: SCALA</option>
-            <option value="KUVAPALATSI">Lahti: KUVAPALATSI</option>
-            <option value="STRAND">Lappeenranta: STRAND</option>
-            <option value="PLAZA">Oulu: PLAZA</option>
-            <option value="PROMENADI">Pori: PROMENADI</option>
-            <option value="CINE ATLAS">Tampere: CINE ATLAS</option>
-            <option value="PLEVNA">Tampere: PLEVNA</option>
-            <option value="Turku">Turku: KINOPALATSI</option>
+        <select class="form-select" aria-label="Default select example" id="selectTheatre">
+          <option value="Choose">Pääkaupunkiseutu</option>
+          <option value="OMENA">Espoo: OMENA</option>
+          <option value="SELLO">Espoo: SELLO</option>
+          <option value="ITIS">Helsinki: ITIS</option>
+          <option value="KINOPALATSI">Helsinki: KINOPALATSI</option>
+          <option value="MAXIM">Helsinki: MAXIM</option>
+          <option value="TENNISPALATSI">Helsinki: TENNISPALATSI</option>
+          <option value="FLAMINGO">Vantaa: FLAMINGO</option>
+          <option value="FANTASIA">Jyväskylä: FANTASIA</option>
+          <option value="SCALA">Kuopio: SCALA</option>
+          <option value="KUVAPALATSI">Lahti: KUVAPALATSI</option>
+          <option value="STRAND">Lappeenranta: STRAND</option>
+          <option value="PLAZA">Oulu: PLAZA</option>
+          <option value="PROMENADI">Pori: PROMENADI</option>
+          <option value="CINE ATLAS">Tampere: CINE ATLAS</option>
+          <option value="PLEVNA">Tampere: PLEVNA</option>
+          <option value="TURKU">Turku: KINOPALATSI</option>
           </select>
-          <h1>Search By movie</h1>
-          <input type="text" id="Title" class="form-control" placeholder="Movie Title">
-      
-
-
-            <table class="table table-striped" id="demo" >
+          <h2>Search</h2>
+          <input type="text" id="Title" class="form-control" placeholder="Search Movie,Theather or Location">
+            <table class="table table-dark" id="demo" >
               <th>Title</th>
               <th>Length (Minutes)</th>
               <th>Rating</th>
