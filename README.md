@@ -12,4 +12,4 @@ Helpoin tapa on vain etsiä elokuvan nimellä ja valita valikosta teatteri.
 
 Haku on mahdollista tehdä esim. "Sello eloskuvanimi" tai "eloskuvanimi Espoo"
 
-Nettisivu https://serene-payne-b70abd.netlify.app/
+Nettisivu https://serene-payne-b70abd.netlify.app/ here is the example of the project.
